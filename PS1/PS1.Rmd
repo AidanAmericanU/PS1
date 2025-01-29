@@ -1,0 +1,87 @@
+---
+title: "PS1"
+author: "Aidan Isaac"
+date: "January 29"
+output: 
+  pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  eval = TRUE,
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = 'center'
+  )
+
+library(tidyverse)
+library(haven)
+library(kableExtra)
+TAN <- read_spss('TAN_R9.sav')
+```
+
+## The Tanzania Afrobarometer Round 9 Dataset
+
+1.  This Afrobarometer Round 9 Dataset is a survey of 2400 Tanzanians and their households. The interviews of these people were conducted between October 6th and November 21st, 2022.
+
+2.  The respondents vary greatly, being categorized by age, gender, ethnicity, language, and whether they live in rural or urban areas. There is a ton of data here, so I compiled age groups to make the data more readable and then limited the table from showing any groups of people that had less than 4 entries total. This made the table much more readable and understandable. The vast majority of the people in the dataset are of the Kiswahili ethnic group. There are generally more people living in rural areas than urban areas, but it is not an extreme difference. 
+
+
+```{r results = 'asis'}
+
+MainTAB<- TAN %>%
+  mutate(Q1 = case_when(
+    Q1 >= 18 & Q1 <= 25 ~ "18-25",
+    Q1 >= 26 & Q1 <= 35 ~ "26-35",
+    Q1 >= 36 & Q1 <= 45 ~ "36-45",
+    TRUE ~ "46+"
+  )) %>%
+  count(.,THISINT, Q1, Q2,URBRUR) %>%
+  filter(n >=4)
+
+knitr::kable(MainTAB, format = 'latex')%>%
+  kable_styling(position = "center")
+```
+
+\newpage
+
+## Attitudes Towards China
+```{r results = 'asis'}
+ChinaTAB<- TAN %>%
+  count(.,Q78A)
+knitr::kable(ChinaTAB, format = 'latex')%>%
+  kable_styling(position = "center")
+```
+
+The first table is a table of Tanzanian respondent's attitude towards China. 1 is extremely negative, while 9 is extremely positive. Most people tend to be neutral about China, in the 4-5 range. A high amount are extremely positive about China, reflecting that maybe China's recent initiatives in the region have paid off in public opinion in Tanzania. Almost 300 people regard China poorly. There is data missing from the rankings of 6 and 7, which I believe is just because nobody chose those options. There is perhaps some missing data though.
+
+
+## Attitudes Towards the United States
+```{r results = 'asis'}
+USATAB <- TAN %>% 
+  count(.,Q78B)
+knitr::kable(USATAB, format = 'latex')%>%
+  kable_styling(position = "center")
+```
+
+The second table is a table of Tanzanian respondent's attitude towards the United States. There's not an enormous difference between this table and the China table. However, it does appear that public opinion about the United States in Tanzania is a bit more polarized, with more people ranking the US at a 1 and at a 9. This means that more people generally strongly dislike the US or strongly approve of the United States than China, which had more people with neutral attitudes.
+
+\newpage
+
+## Difference Between Perceptions
+```{r results = 'asis'}
+NewTAN =
+  TAN %>%
+  mutate(
+    across(
+      Q7A:Q7B,
+      ~if_else(.x %in% 1:5, .x, NA)
+    )
+  )
+
+t.test(NewTAN$Q78A, NewTAN$Q78B, paired = TRUE) 
+
+```
+
+The paired t-test reveals that there is statistical significance of Tanzanian respondent's views on China and America. The p-value is 0.001923, which is lower than the 0.05 significance threshold. As I mentioned before, my best understanding is that Tanzanian views on the United States are more polarized than they are with China. Perhaps the United States has had longer time being involved in Tanzanian affairs, while China has only fairly recently begun to expand it's foreign influence. It is difficult to say for sure without further research into the data, but it is interesting that there is significance to the relationship at all. 
