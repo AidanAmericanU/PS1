@@ -1,0 +1,155 @@
+---
+title: "PS1"
+author: "Aidan Isaac"
+date: "January 29"
+output: 
+  pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  eval = TRUE,
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.align = 'center'
+  )
+
+library(tidyverse)
+library(haven)
+library(kableExtra)
+TAN <- read_spss('TAN_R9.sav')
+```
+
+## The Tanzania Afrobarometer Round 9 Dataset
+
+1.  This Afrobarometer Round 9 Dataset is a survey of 2400 Tanzanians and their households. The interviews of these people were conducted between October 6th and November 21st, 2022.
+
+2.  The respondents vary greatly, being categorized by age, gender, ethnicity, language, and whether they live in rural or urban areas. There is a ton of data here, so I compiled age groups to make the data more readable and then limited the table from showing any groups of people that had less than 5 entries total. This made the table much more readable and understandable, although it does sacrifice some of the data. But it made it fit all onto one page, which I think made sense. The table makes it easy to tell how many of a specific group of people there are. 15.8% of the people in this table are rural men over the age of 46 that speak Kiswahili. But only 0.6% are rural women between the ages of 26 and 35 that speak Kigogo. The vast majority of the people in the dataset are of the Kiswahili language group. There are generally more people living in rural areas than urban areas, but just barely.
+
+```{r results = 'asis'}
+
+MainTAB<- TAN %>%
+  group_by(THISINT) %>% 
+  mutate(Q1 = case_when(
+    Q1 >= 18 & Q1 <= 25 ~ "18-25",
+    Q1 >= 26 & Q1 <= 35 ~ "26-35",
+    Q1 >= 36 & Q1 <= 45 ~ "36-45",
+    TRUE ~ "46+"
+  )) %>% 
+  mutate(THISINT = case_when(
+    THISINT == 1 ~ "Male",
+    THISINT == 2 ~ "Female")) %>% 
+  mutate(URBRUR = case_when(
+    URBRUR == 1 ~ "Urban",
+    URBRUR == 2 ~ "Rural")) %>%
+  mutate(Q2 = case_when(
+    Q2 == 4 ~ "Kiswahili",
+    Q2 == 749 ~ "Kisukuma",
+    Q2 == 750 ~ "Kimasai",
+    Q2 == 753 ~ "Kigogo",
+    Q2 == 755 ~ "Kifipa",
+    Q2 == 758 ~ "Kinyaturu",
+    Q2 == 9995 ~ "Other"
+  )) %>% 
+  count(.,THISINT, Q1, Q2,URBRUR) %>% 
+  filter((n>=5)) %>% 
+  mutate(Percentage = round(n / sum(n) * 100,2))
+MainTAB2 <- MainTAB %>%
+  rename(
+    Gender = THISINT,
+    Age_Group = Q1,
+    Urban_Rural = URBRUR,
+    NumberofPeople = n,
+    Language = Q2)
+knitr::kable(MainTAB2, format = 'latex')%>%
+  kable_styling(position = "center")
+```
+
+\newpage
+
+## Attitudes Towards China
+```{r results = 'asis'}
+ChinaTAB<- TAN %>%
+   mutate(Q78A = case_when(
+    Q78A == 1 ~ "Very Negative",
+    Q78A == 2 ~ "Somewhat Negative",
+    Q78A == 3 ~ "Neither Negative nor Positive",
+    Q78A == 4 ~ "Somewhat Positive",
+    Q78A == 5 ~ "Very Positive",
+    Q78A == 8 ~ "Refused",
+    Q78A == 9 ~ "Don't Know"
+  )) %>% 
+  mutate(Q78A = factor(Q78A, levels = c(
+    "Very Negative",
+    "Somewhat Negative",
+    "Neither Negative nor Positive",
+    "Somewhat Positive",
+    "Very Positive",
+    "Refused",
+    "Don't Know"
+  ))) %>% 
+  count(.,Q78A) %>% 
+  mutate(Percentage = round(n / sum(n) * 100,1))
+ChinaTAB2 <- ChinaTAB %>%
+  rename(
+    Attitudes = Q78A,
+    Respondents = n)
+knitr::kable(ChinaTAB2, format = 'latex')%>%
+  kable_styling(position = "center")
+
+```
+
+This table is of Tanzanian respondent's attitude towards China. 1 is extremely negative, while 5 is extremely positive. 8 is refused, and 9 is Don't know. Overall, views of China in Tanzania are very positive, with 24.9% of respondents stating that they have positive views on China, with 28.4% saying they have somewhat positive views.  33.2% say they simply do not know enough about China to say, and less than 10%  have an unfavorable view of China. Overall this are pretty good attitudes towards China, and it would be interesting to understand why respondents were generally so positive towards China.
+
+\nextpage
+
+## Attitudes Towards the United States
+```{r results = 'asis'}
+USATAB <- TAN %>%
+   mutate(Q78B = case_when(
+    Q78B == 1 ~ "Very Negative",
+    Q78B == 2 ~ "Somewhat Negative",
+    Q78B == 3 ~ "Neither Negative nor Positive",
+    Q78B == 4 ~ "Somewhat Positive",
+    Q78B == 5 ~ "Very Positive",
+    Q78B == 8 ~ "Refused",
+    Q78B == 9 ~ "Don't Know"
+  )) %>% 
+  mutate(Q78B = factor(Q78B, levels = c(
+    "Very Negative",
+    "Somewhat Negative",
+    "Neither Negative nor Positive",
+    "Somewhat Positive",
+    "Very Positive",
+    "Refused",
+    "Don't Know"
+  ))) %>% 
+  count(.,Q78B) %>% 
+  mutate(Percentage = round(n / sum(n) * 100,1))
+USATAB2 <- USATAB %>%
+  rename(
+    Attitudes = Q78B,
+    Respondents = n)
+knitr::kable(USATAB2, format = 'latex')%>%
+  kable_styling(position = "center")
+```
+
+This table is of Tanzanian respondent's attitude towards the United States. This table shows that attitudes towards the United States are generally not as positive as they are for China. Most people still have favorable beliefs about the United States, with 16.4% having very positive views and 26.5% having somewhat positive views. It does appear that public opinion about the United States in Tanzania is a bit more negative, with more people ranking the US at a 1 and 2 than they did China. This means that more people generally dislike the US than China. Interestingly, many Tanzanians said that they did not know enough about the United States to say, with this being at 39.1% for the US compared to 33.2% for China.
+
+## Difference Between Perceptions
+```{r results = 'asis'}
+NewTAN =
+  TAN %>%
+  mutate(
+    across(
+      Q7A:Q7B,
+      ~if_else(.x %in% 1:5, .x, NA)
+    )
+  )
+
+t.test(NewTAN$Q78A, NewTAN$Q78B, paired = TRUE) 
+
+```
+
+The paired t-test reveals that there is statistical significance of Tanzanian respondent's views on China and America. The p-value is 0.001923, which is lower than the 0.05 significance threshold. As I mentioned before, my best understanding is that Tanzanian views on the United States are more negative than they are with China. Perhaps China has had a better impression on the people of Tanzania, without being seen as imperialist as the US could be seen as. It is difficult to say for sure without further research into the data, but it is interesting that there is significance to the relationship at all. 

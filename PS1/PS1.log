@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.29)  29 JAN 2025 15:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.29)  29 JAN 2025 23:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -553,54 +553,41 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 129.
 (c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 152.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 157.
 (c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 153.
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 163.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 158.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 191.
 (c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 170.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 170.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 170.
-
-LaTeX Warning: Float too large for page by 7.16966pt on input line 279.
-
-
 
 [1
 
-{c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+{c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 198.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 198.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 198.
 
-[2]
+
+[2{c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
 
 [3]
-
-[4{c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] (./PS1.aux)
- ***********
-LaTeX2e <2024-11-01> patch level 1
-L3 programming layer <2024-12-25>
- ***********
- ) 
+! Undefined control sequence.
+l.374 \nextpage
+                
 Here is how much of TeX's memory you used:
- 13317 strings out of 475178
- 207780 string characters out of 5764492
- 630307 words of memory out of 5000000
- 36054 multiletter control sequences out of 15000+600000
+ 13300 strings out of 475178
+ 207482 string characters out of 5764492
+ 633159 words of memory out of 5000000
+ 36045 multiletter control sequences out of 15000+600000
  596941 words of font info for 76 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 89i,9n,93p,569b,444s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb><c:/Users/aidan/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on PS1.pdf (4 pages, 172409 bytes).
-PDF statistics:
- 91 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
- 11 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 89i,9n,93p,553b,474s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
+!  ==> Fatal error occurred, no output PDF file produced!
